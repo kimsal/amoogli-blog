@@ -161,27 +161,28 @@
     <!-- Menu Toggle Script -->
     <script>
     var image_string='';
-  
+    var feature_image='';
     </script>
   {% for p in post %}
  <script type="text/javascript">
    $('input#title').attr('value',"{{p.title}}"); 
    $('#frm').attr('action','/admin/post/edit/{{p.slug}}/');
    var help="{{p.description.replace('\n', '').replace('\r','')}}";
-   //help=help.replace(/(&lt;br\/&gt;)+/gi,'')
-   //alert(help);
    $('#description').html(help);  
    $('select#category_id option[value="{{p.category_id}}"]').attr("selected","selected");
    // $(".feature_output").attr("src","/static/images/feature_images/{{p.feature_image}}");
    var feature_image="{{p.feature_image}}";
-   if(feature_image!=''){
-     $("#landscape").html('<img src="'+feature_image+'"/>');
-     //alert(feature_image);
-   }
+  $("#landscape").html('<img src="'+feature_image+'" class="img-responsive"/>');
    $(".txt_temp_image").attr('value',feature_image);
 
  </script>
  
 {% endfor %}
+<script type="text/javascript">
+  if(feature_image==''){
+     feature_image='/static/images/no image.jpg';
+   }
+  $("#landscape").html('<img src="'+feature_image+'" class="img-responsive"/>');
+</script>
 
 {% include 'admin/footer.html' %} 
